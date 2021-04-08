@@ -9,7 +9,7 @@ https://docs.djangoproject.com/en/3.1/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.1/ref/settings/
 """
-
+import django_heroku
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -20,7 +20,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '32t&unsu2-ylafgq6#m55r7c9usp^)x8p*5g4heg64$-r@8grx'
+SECRET_KEY = '13439C8Fc7Cd3673Ef25015Cae20386Ae6Da048727F4Bbe1'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -47,6 +47,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.whiteNoiseMiddleWare',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -123,11 +124,14 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 import os
+STATIC_ROOT = os.path.join(BASE_DIR , 'staticfiles')
 STATIC_URL = '/static/'
 MEDIA_URL = '/MEDIA/'
 MEDIA_ROOT = os.path.join(BASE_DIR , "media")
 
 STATICFILES_DIRS = [
-    BASE_DIR / "static",
-    'E:\abdo\web desigen\cs50 experments\Django\project\static',
+   os.path.join(BASE_DIR , 'static')
 ]
+STATICFILES_STORAGE = 'whitenoise.storage.CommpressedManifestStaticFilesStorage'
+
+django_heroku.settings(locals())
